@@ -1,0 +1,542 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="sky">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OL GANGS</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--radius:14px}
+[data-theme="sky"]{--bg:#06142a;--bg2:#0a1f3d;--panel:#0d2644;--panel2:#123359;--text:#e8f4ff;--muted:#8fb4d2;--accent:#29b6f6;--accent2:#0288d1;--on-accent:#04243d;--border:#1d4a75;--danger:#ff5d6c;--ok:#3ddc97;--warn:#ffc857}
+[data-theme="white"]{--bg:#eef3f8;--bg2:#e3ebf3;--panel:#ffffff;--panel2:#edf2f7;--text:#0f2233;--muted:#5d7387;--accent:#0288d1;--accent2:#01579b;--on-accent:#fff;--border:#d2dde8;--danger:#d93a4a;--ok:#1a9e66;--warn:#c98a00}
+[data-theme="black"]{--bg:#050505;--bg2:#0c0c0c;--panel:#131313;--panel2:#1c1c1c;--text:#ececec;--muted:#8d8d8d;--accent:#cfd4da;--accent2:#9aa0a8;--on-accent:#0a0a0a;--border:#2b2b2b;--danger:#ff5d6c;--ok:#3ddc97;--warn:#ffc857}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Cairo',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+header{position:sticky;top:0;z-index:50;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;padding:10px 20px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;cursor:pointer}
+.brand b{font-family:'Oswald','Cairo',sans-serif;font-size:1.5rem;letter-spacing:2px}
+.brand svg{width:40px;height:40px}
+nav{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+nav button{background:none;border:0;padding:8px 14px;border-radius:10px;cursor:pointer;color:var(--muted);font-weight:600}
+nav button:hover{background:var(--panel2);color:var(--text)}
+nav button.active{background:var(--accent);color:var(--on-accent)}
+.right{display:flex;align-items:center;gap:8px;position:relative}
+.btn{background:var(--accent);color:var(--on-accent);border:0;padding:8px 16px;border-radius:10px;cursor:pointer;font-weight:700}
+.btn:hover{filter:brightness(1.1)}
+.btn.ghost{background:var(--panel2);color:var(--text);border:1px solid var(--border)}
+.btn.danger{background:var(--danger);color:#fff}
+.btn.sm{padding:4px 10px;font-size:.85rem;border-radius:8px}
+.menu{position:absolute;top:110%;inset-inline-end:0;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:14px;min-width:230px;display:none;box-shadow:0 12px 40px #0006}
+.menu.open{display:block}
+.menu h4{font-size:.85rem;color:var(--muted);margin:8px 0 6px}
+.opts{display:flex;gap:6px}
+.opts button{flex:1;padding:6px;border-radius:8px;border:1px solid var(--border);background:var(--panel2);cursor:pointer}
+.opts button.on{outline:2px solid var(--accent)}
+main{max-width:1200px;margin:0 auto;padding:24px 16px 60px}
+.hero{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:center;background:linear-gradient(135deg,var(--panel),var(--bg2));border:1px solid var(--border);border-radius:22px;padding:28px;margin-bottom:24px}
+.hero h1{font-family:'Oswald',sans-serif;font-size:3.2rem;letter-spacing:4px;line-height:1.1}
+.hero h1 span{color:var(--accent)}
+.hero p{color:var(--muted);margin:10px 0 18px;max-width:520px}
+.hero svg{width:100%;height:auto;filter:drop-shadow(0 10px 30px #0008)}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.hero svg{max-width:300px;margin:auto}}
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.g3{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+.stat{text-align:center}
+.stat .n{font-size:2rem;font-weight:900;color:var(--accent)}
+.stat .l{color:var(--muted);font-size:.9rem}
+h2{font-size:1.4rem;margin:26px 0 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.tbl{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.tbl th,.tbl td{padding:10px 12px;text-align:start;border-bottom:1px solid var(--border);font-size:.95rem}
+.tbl th{background:var(--panel2);color:var(--muted);font-size:.8rem}
+.tbl tr:last-child td{border-bottom:0}
+.tbl tr.click{cursor:pointer}.tbl tr.click:hover td{background:var(--panel2)}
+.wrap{overflow-x:auto;border-radius:var(--radius)}
+.bar{height:8px;background:var(--panel2);border-radius:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent)}
+.badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:.78rem;font-weight:700;background:var(--panel2);border:1px solid var(--border)}
+.badge.ok{color:var(--ok)}.badge.warn{color:var(--warn)}.badge.bad{color:var(--danger)}
+.gname{display:flex;align-items:center;gap:8px;font-weight:700}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block}
+.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.tabs button{padding:8px 18px;border-radius:10px;border:1px solid var(--border);background:var(--panel);cursor:pointer;font-weight:700}
+.tabs button.on{background:var(--accent);color:var(--on-accent)}
+.notice{padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--panel2);margin-bottom:14px;font-size:.92rem}
+.notice.ok{border-color:var(--ok)}.notice.bad{border-color:var(--danger)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input,select,textarea{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:8px 12px;width:100%}
+.modal-bg{position:fixed;inset:0;background:#000a;display:flex;align-items:center;justify-content:center;z-index:100;padding:16px}
+.modal{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:22px;width:100%;max-width:440px;max-height:90vh;overflow:auto}
+.modal h3{margin-bottom:14px}
+.modal label{display:block;font-size:.85rem;color:var(--muted);margin:10px 0 4px}
+.chk{display:flex;align-items:center;gap:8px;margin:4px 0}.chk input{width:auto}
+.toast{position:fixed;bottom:24px;inset-inline-start:50%;transform:translateX(-50%);background:var(--accent);color:var(--on-accent);padding:10px 22px;border-radius:12px;font-weight:700;z-index:200}
+.empty{color:var(--muted);text-align:center;padding:30px}
+.pcard .big{font-size:1.6rem;font-weight:900}
+footer{text-align:center;color:var(--muted);padding:20px;font-size:.85rem}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand" onclick="go('dash')">
+    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#17181b" stroke="#888" stroke-width="3"/><use href="#skull" transform="translate(-8 -2) scale(.38)"/></svg>
+    <b>OL GANGS</b>
+  </div>
+  <nav id="nav"></nav>
+  <div class="right">
+    <button class="btn ghost" id="setBtn" onclick="toggleMenu()">⚙</button>
+    <div class="menu" id="menu">
+      <h4 data-i18n="theme"></h4>
+      <div class="opts" id="themeOpts">
+        <button data-th="sky" data-i18n="sky"></button>
+        <button data-th="white" data-i18n="white"></button>
+        <button data-th="black" data-i18n="black"></button>
+      </div>
+      <h4 data-i18n="language"></h4>
+      <div class="opts" id="langOpts">
+        <button data-lg="ar">العربية</button>
+        <button data-lg="en">English</button>
+      </div>
+      <h4 data-i18n="data"></h4>
+      <div class="opts"><button onclick="resetData()" data-i18n="reset"></button></div>
+    </div>
+    <span id="userBox"></span>
+  </div>
+</header>
+
+<main id="app"></main>
+<footer>OL GANGS © 2026</footer>
+
+<!-- Skull symbol (silver) -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f4f4"/><stop offset=".45" stop-color="#a9adb3"/><stop offset=".7" stop-color="#e9eaec"/><stop offset="1" stop-color="#7d8188"/>
+    </linearGradient>
+    <g id="skull">
+      <ellipse cx="240" cy="130" rx="62" ry="68" fill="url(#silver)"/>
+      <path d="M190 160 Q184 200 200 215 L200 245 Q200 258 214 258 L266 258 Q280 258 280 245 L280 215 Q296 200 290 160Z" fill="url(#silver)"/>
+      <ellipse cx="216" cy="142" rx="16" ry="14" fill="#111"/><ellipse cx="264" cy="142" rx="16" ry="14" fill="#111"/>
+      <path d="M240 160 L231 184 Q240 190 249 184Z" fill="#222"/>
+      <g fill="#e6e6e6" stroke="#555" stroke-width="1">
+        <rect x="206" y="226" width="9" height="20" rx="2"/><rect x="216" y="226" width="9" height="22" rx="2"/><rect x="226" y="226" width="9" height="23" rx="2"/><rect x="236" y="226" width="9" height="23" rx="2"/><rect x="246" y="226" width="9" height="23" rx="2"/><rect x="256" y="226" width="9" height="22" rx="2"/><rect x="266" y="226" width="9" height="20" rx="2"/>
+      </g>
+      <path d="M205 80 Q215 100 205 120 M285 85 Q272 100 282 118" stroke="#6f737a" stroke-width="2" fill="none"/>
+    </g>
+  </defs>
+</svg>
+
+<script>
+/* ============ CONFIG ============ */
+const CONFIG = {
+  API_URL: '',              // رابط الـ Backend (Node/Express مثلاً) لربط FiveM والداتابيس
+  DISCORD_LOGIN_URL: '',    // رابط تسجيل دخول ديسكورد OAuth2 من الـ Backend
+  HOLD_DAYS: 14,
+  MAX_MEMBERS: 30,
+  XP_PER_LEVEL: 500
+};
+
+/* ============ I18N ============ */
+const I18N = {
+ ar:{
+  dash:'الرئيسية',gangs:'العصابات',players:'اللاعبين',results:'الفوزات والخسارات',discord:'لوحة الديسكورد',
+  theme:'الثيم',sky:'سماوي غامق',white:'أبيض',black:'أسود',language:'اللغة',data:'البيانات',reset:'إعادة بيانات التجربة',
+  login:'دخول بالديسكورد',logout:'خروج',heroP:'نظام إدارة العصابات لسيرفر فايف إم: النقاط، المستويات، الفوزات، الخسارات، الهولد والبلاك لست في مكان واحد.',
+  gangsCount:'عدد العصابات',membersTotal:'إجمالي الأعضاء',winsTotal:'إجمالي الفوزات',matchesTotal:'عدد النتائج',
+  leaderboard:'ترتيب العصابات',rank:'#',gang:'العصابة',level:'اللفل',xp:'الإكسبي',wins:'فوزات',losses:'خسارات',members:'الأعضاء',
+  topKillers:'أفضل القتلة',kills:'ذبحات',deaths:'مرات الموت',raids:'ريدات شارك',kd:'K/D',name:'الاسم',
+  addGang:'إضافة عصابة',gangName:'اسم العصابة',color:'اللون',deleteGang:'حذف العصابة',confirm:'متأكد؟',
+  gangPanel:'لوحة العصابة',back:'رجوع',editStats:'تعديل الإحصائيات',addMember:'إضافة عضو',remove:'إزالة',
+  discordId:'ايدي الديسكورد',joined:'تاريخ الدخول',hold:'الهولد',actions:'إجراءات',noMembers:'لا يوجد أعضاء',
+  profile:'الملف الشخصي',search:'بحث...',noGang:'بدون عصابة',blacklisted:'بلاك لست',
+  holdJoin:'هولد من الدخول',holdLeave:'هولد من الخروج',daysLeft:'يوم متبقي',noHold:'لا يوجد',until:'حتى',
+  tab1:'ملخص',tab2:'سجل النتائج',tab3:'الفوزات والخسارات',recordMatch:'تسجيل نتيجة',gangA:'العصابة الأولى',gangB:'العصابة الثانية',winner:'الفائز',
+  xpWin:'إكسبي الفائز',xpLose:'إكسبي الخاسر',date:'التاريخ',result:'النتيجة',vs:'ضد',won:'فاز',
+  roles:'الرتب والصلاحيات',staff:'المسؤولين',blacklist:'البلاك لست',holdList:'الهولد',addRole:'إضافة رتبة',roleName:'اسم الرتبة',perms:'الصلاحيات',
+  addStaff:'إضافة مسؤول',role:'الرتبة',reason:'السبب',by:'بواسطة',addBL:'إضافة بلاك لست',
+  fridayOnly:'إضافة وإزالة البلاك لست متاحة يوم الجمعة فقط.',fridayOk:'اليوم جمعة، يمكنك إضافة وإزالة البلاك لست.',fridayNo:'اليوم ليس جمعة، الإضافة والإزالة مقفلة.',
+  demoFriday:'وضع التجربة: اعتبار اليوم جمعة',
+  noPerm:'ما عندك صلاحية لهذا الإجراء.',needLogin:'سجل دخولك أولاً.',
+  save:'حفظ',cancel:'إلغاء',delete:'حذف',edit:'تعديل',
+  gangFull:'العصابة وصلت الحد الأقصى (30).',inBlacklist:'اللاعب في البلاك لست.',inHold:'اللاعب عليه هولد حتى',alreadyIn:'اللاعب موجود في عصابة.',
+  done:'تم',demoLogin:'تسجيل دخول تجريبي',pickRole:'اختر رتبتك',yourName:'اسمك',yourGang:'عصابتك (للقائد)',
+  p_add_gang:'إضافة عصابات جديدة',p_manage_roles:'إنشاء الرتب',p_assign_roles:'إضافة رتب للمسؤولين',p_blacklist:'إدارة البلاك لست',p_record_match:'تسجيل النتائج',p_edit_stats:'تعديل الإحصائيات',p_manage_members:'إدارة أعضاء كل العصابات',p_manage_members_own:'إدارة أعضاء عصابته فقط',
+  deny:'هذه الصفحة للمسؤولين فقط.',apiNote:'الربط مع ديسكورد وسكربت فايف إم يحتاج Backend (مفعّل من CONFIG). حالياً البيانات تجريبية محفوظة في المتصفح.',
+  blSince:'منذ',liftBL:'إزالة',total:'الإجمالي'
+ },
+ en:{
+  dash:'Home',gangs:'Gangs',players:'Players',results:'Wins & Losses',discord:'Discord Panel',
+  theme:'Theme',sky:'Dark Sky',white:'White',black:'Black',language:'Language',data:'Data',reset:'Reset demo data',
+  login:'Login with Discord',logout:'Logout',heroP:'Gang management for your FiveM server: XP, levels, wins, losses, holds and blacklist in one place.',
+  gangsCount:'Gangs',membersTotal:'Total members',winsTotal:'Total wins',matchesTotal:'Results logged',
+  leaderboard:'Gang leaderboard',rank:'#',gang:'Gang',level:'Level',xp:'XP',wins:'Wins',losses:'Losses',members:'Members',
+  topKillers:'Top killers',kills:'Kills',deaths:'Deaths',raids:'Raids joined',kd:'K/D',name:'Name',
+  addGang:'Add gang',gangName:'Gang name',color:'Color',deleteGang:'Delete gang',confirm:'Are you sure?',
+  gangPanel:'Gang panel',back:'Back',editStats:'Edit stats',addMember:'Add member',remove:'Remove',
+  discordId:'Discord ID',joined:'Joined',hold:'Hold',actions:'Actions',noMembers:'No members',
+  profile:'Profile',search:'Search...',noGang:'No gang',blacklisted:'Blacklisted',
+  holdJoin:'Join hold',holdLeave:'Leave hold',daysLeft:'days left',noHold:'None',until:'until',
+  tab1:'Summary',tab2:'Match log',tab3:'Wins & Losses',recordMatch:'Record result',gangA:'Gang A',gangB:'Gang B',winner:'Winner',
+  xpWin:'Winner XP',xpLose:'Loser XP',date:'Date',result:'Result',vs:'vs',won:'won',
+  roles:'Roles & permissions',staff:'Staff',blacklist:'Blacklist',holdList:'Holds',addRole:'Add role',roleName:'Role name',perms:'Permissions',
+  addStaff:'Add staff',role:'Role',reason:'Reason',by:'By',addBL:'Add to blacklist',
+  fridayOnly:'Blacklist add/remove is allowed on Fridays only.',fridayOk:'It is Friday: you can add and remove blacklist entries.',fridayNo:'Not Friday: add/remove is locked.',
+  demoFriday:'Demo mode: treat today as Friday',
+  noPerm:'You do not have permission.',needLogin:'Please log in first.',
+  save:'Save',cancel:'Cancel',delete:'Delete',edit:'Edit',
+  gangFull:'Gang is full (30 max).',inBlacklist:'Player is blacklisted.',inHold:'Player is on hold until',alreadyIn:'Player is already in a gang.',
+  done:'Done',demoLogin:'Demo login',pickRole:'Pick your role',yourName:'Your name',yourGang:'Your gang (leaders)',
+  p_add_gang:'Add new gangs',p_manage_roles:'Create roles',p_assign_roles:'Assign roles to staff',p_blacklist:'Manage blacklist',p_record_match:'Record results',p_edit_stats:'Edit stats',p_manage_members:'Manage all gang members',p_manage_members_own:'Manage own gang members',
+  deny:'This page is for staff only.',apiNote:'Discord and FiveM integration requires a backend (set in CONFIG). Data here is demo data stored in your browser.',
+  blSince:'since',liftBL:'Remove',total:'Total'
+ }
+};
+
+/* ============ STATE ============ */
+const KEY='olgangs_v1', SKEY='olgangs_session', PKEY='olgangs_prefs';
+const DAY=86400000, now=()=>Date.now(), uid=()=>Math.random().toString(36).slice(2,9);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const PERMS=['add_gang','manage_roles','assign_roles','blacklist','record_match','edit_stats','manage_members','manage_members_own'];
+
+let prefs=JSON.parse(localStorage.getItem(PKEY)||'{"theme":"sky","lang":"ar","demoFriday":false}');
+let session=JSON.parse(localStorage.getItem(SKEY)||'null');
+let DB=load();
+let view={page:'dash',id:null,tab:'1',dtab:'roles',q:''};
+
+function seed(){
+  const g=(name,color,xp,w,l)=>({id:uid(),name,color,xp,wins:w,losses:l});
+  const gangs=[g('Black Wolves','#29b6f6',2350,14,5),g('Silver Vipers','#b0b6bd',1720,10,7),g('Red Dragons','#ff5d6c',1180,7,9),g('Night Kings','#a78bfa',640,3,8)];
+  const names=['Faisal','Khalid','Sultan','Nawaf','Turki','Saad','Majed','Fahad','Rakan','Bader','Mishari','Abdullah'];
+  const players=[];
+  names.forEach((n,i)=>{const gi=i%4;players.push({id:uid(),name:n,discord:'',gangId:gangs[gi].id,joinedAt:now()-(i*3+2)*DAY,leftAt:null,holdUntil:now()-(i*3+2)*DAY+CONFIG.HOLD_DAYS*DAY,holdKind:'join',raids:5+i*2,wins:2+i,losses:i%3,kills:20+i*7,deaths:10+i*3});});
+  return{gangs,players,blacklist:[],matches:[],
+    roles:[
+      {id:'mafia',name:'مسؤول المافيا',color:'#ffc857',perms:[...PERMS]},
+      {id:'admin',name:'مسؤول',color:'#29b6f6',perms:['blacklist','record_match','edit_stats','manage_members']},
+      {id:'leader',name:'قائد عصابة',color:'#3ddc97',perms:['manage_members_own']},
+      {id:'member',name:'عضو',color:'#8d8d8d',perms:[]}],
+    staff:[{id:uid(),name:'Mafia Boss',discord:'',roleId:'mafia'},{id:uid(),name:'Admin One',discord:'',roleId:'admin'}]};
+}
+function load(){try{const d=JSON.parse(localStorage.getItem(KEY));if(d&&d.gangs)return d}catch(e){}const d=seed();localStorage.setItem(KEY,JSON.stringify(d));return d}
+function save(){localStorage.setItem(KEY,JSON.stringify(DB))}
+function resetData(){if(!confirm(t('confirm')))return;DB=seed();save();go('dash')}
+
+const t=k=>(I18N[prefs.lang]&&I18N[prefs.lang][k])||k;
+const role=()=>session?DB.roles.find(r=>r.id===session.roleId):null;
+const can=p=>{const r=role();return !!(r&&r.perms.includes(p))};
+const isFriday=()=>prefs.demoFriday||new Date().getDay()===5;
+const level=xp=>Math.floor(xp/CONFIG.XP_PER_LEVEL)+1;
+const gangById=id=>DB.gangs.find(g=>g.id===id);
+const playerById=id=>DB.players.find(p=>p.id===id);
+const members=gid=>DB.players.filter(p=>p.gangId===gid);
+const fmt=ts=>new Date(ts).toLocaleDateString(prefs.lang==='ar'?'ar-SA-u-nu-latn':'en-GB',{year:'numeric',month:'short',day:'numeric'});
+const kd=p=>(p.deaths?(p.kills/p.deaths):p.kills).toFixed(2);
+const isBL=p=>DB.blacklist.some(b=>b.playerId===p.id);
+function canManage(gid){return can('manage_members')||(can('manage_members_own')&&session&&session.gangId===gid)}
+
+/* ============ UI HELPERS ============ */
+function toast(m){const d=document.createElement('div');d.className='toast';d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),2200)}
+function modal(title,fields,onOk,extraHtml=''){
+  const bg=document.createElement('div');bg.className='modal-bg';
+  const f=fields.map(x=>{
+    if(x.type==='select')return`<label>${x.label}</label><select name="${x.k}">${x.options.map(o=>`<option value="${esc(o.v)}" ${o.v==x.value?'selected':''}>${esc(o.l)}</option>`).join('')}</select>`;
+    if(x.type==='checks')return`<label>${x.label}</label>${x.options.map(o=>`<div class="chk"><input type="checkbox" name="${x.k}" value="${o.v}" ${(x.value||[]).includes(o.v)?'checked':''}>${esc(o.l)}</div>`).join('')}`;
+    return`<label>${x.label}</label><input name="${x.k}" type="${x.type||'text'}" value="${esc(x.value??'')}">`}).join('');
+  bg.innerHTML=`<form class="modal"><h3>${title}</h3>${extraHtml}${f}<div class="row" style="margin-top:18px"><button class="btn" type="submit">${t('save')}</button><button class="btn ghost" type="button" id="mc">${t('cancel')}</button></div></form>`;
+  document.body.appendChild(bg);
+  bg.querySelector('#mc').onclick=()=>bg.remove();
+  bg.addEventListener('mousedown',e=>{if(e.target===bg)bg.remove()});
+  bg.querySelector('form').onsubmit=e=>{e.preventDefault();const fd=new FormData(e.target),o={};
+    fields.forEach(x=>{o[x.k]=x.type==='checks'?fd.getAll(x.k):fd.get(x.k)});
+    if(onOk(o)!==false)bg.remove()};
+}
+function needPerm(p){if(!session){toast(t('needLogin'));return false}if(!can(p)){toast(t('noPerm'));return false}return true}
+
+/* ============ ROUTER / RENDER ============ */
+function go(page,id=null){view.page=page;view.id=id;view.tab='1';render();window.scrollTo(0,0)}
+function render(){
+  document.documentElement.dataset.theme=prefs.theme;
+  document.documentElement.lang=prefs.lang;
+  document.documentElement.dir=prefs.lang==='ar'?'rtl':'ltr';
+  document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=t(e.dataset.i18n));
+  document.querySelectorAll('#themeOpts button').forEach(b=>b.classList.toggle('on',b.dataset.th===prefs.theme));
+  document.querySelectorAll('#langOpts button').forEach(b=>b.classList.toggle('on',b.dataset.lg===prefs.lang));
+  const items=[['dash','dash'],['gangs','gangs'],['players','players'],['results','results'],['discord','discord']];
+  document.getElementById('nav').innerHTML=items.map(([p,k])=>`<button class="${(view.page===p||(p==='gangs'&&view.page==='gang')||(p==='players'&&view.page==='profile'))?'active':''}" onclick="go('${p}')">${t(k)}</button>`).join('');
+  document.getElementById('userBox').innerHTML=session
+    ?`<span class="badge" style="border-color:${role()?.color}">${esc(session.name)} · ${esc(role()?.name||'')}</span> <button class="btn ghost sm" onclick="logout()">${t('logout')}</button>`
+    :`<button class="btn" onclick="login()">${t('login')}</button>`;
+  const app=document.getElementById('app');
+  const P={dash:pDash,gangs:pGangs,gang:pGang,players:pPlayers,profile:pProfile,results:pResults,discord:pDiscord};
+  app.innerHTML=(P[view.page]||pDash)();
+}
+function toggleMenu(){document.getElementById('menu').classList.toggle('open')}
+document.addEventListener('click',e=>{
+  const m=document.getElementById('menu');
+  if(!e.target.closest('.right'))m.classList.remove('open');
+  const th=e.target.closest('[data-th]');if(th){prefs.theme=th.dataset.th;savePrefs();render()}
+  const lg=e.target.closest('[data-lg]');if(lg){prefs.lang=lg.dataset.lg;savePrefs();render()}
+});
+function savePrefs(){localStorage.setItem(PKEY,JSON.stringify(prefs))}
+
+/* ============ AUTH ============ */
+function login(){
+  if(CONFIG.DISCORD_LOGIN_URL){location.href=CONFIG.DISCORD_LOGIN_URL;return}
+  modal(t('demoLogin'),[
+    {k:'name',label:t('yourName'),value:'Mafia Boss'},
+    {k:'roleId',label:t('pickRole'),type:'select',options:DB.roles.map(r=>({v:r.id,l:r.name})),value:'mafia'},
+    {k:'gangId',label:t('yourGang'),type:'select',options:[{v:'',l:'—'},...DB.gangs.map(g=>({v:g.id,l:g.name}))]}
+  ],o=>{if(!o.name.trim())return false;session={name:o.name.trim(),roleId:o.roleId,gangId:o.gangId||null};localStorage.setItem(SKEY,JSON.stringify(session));render()},
+  `<div class="notice">${t('apiNote')}</div>`);
+}
+function logout(){session=null;localStorage.removeItem(SKEY);render()}
+
+/* ============ HERO / LOGO ============ */
+function heroSvg(){return`<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+ <circle cx="200" cy="200" r="192" fill="#1b1c1f" stroke="#0a0a0b" stroke-width="6"/>
+ <circle cx="200" cy="200" r="176" fill="none" stroke="#3a3b40" stroke-width="2" stroke-dasharray="4 5"/>
+ <path d="M75 305 L150 150 L162 160 L112 268 L160 268 L170 285Z" fill="url(#silver)"/>
+ <path d="M178 118 A92 92 0 0 0 176 232" stroke="url(#silver)" stroke-width="14" fill="none" stroke-linecap="round"/>
+ <path d="M150 262 Q200 305 262 275 Q215 250 150 262Z" fill="url(#silver)"/>
+ <path d="M170 255 Q260 245 345 318 Q270 262 170 270Z" fill="url(#silver)"/>
+ <g transform="translate(70 12) scale(.82)"><use href="#skull"/></g>
+ <text x="200" y="372" text-anchor="middle" font-family="Oswald,Impact,sans-serif" font-weight="700" font-size="76" letter-spacing="6" fill="#e9e9ea">GANGS</text>
+</svg>`}
+
+/* ============ PAGES ============ */
+function pDash(){
+  const gs=[...DB.gangs].sort((a,b)=>b.xp-a.xp);
+  const top=[...DB.players].sort((a,b)=>b.kills-a.kills).slice(0,5);
+  return`<section class="hero"><div><h1>OL <span>GANGS</span></h1><p>${t('heroP')}</p>
+   <div class="row"><button class="btn" onclick="go('gangs')">${t('gangs')}</button><button class="btn ghost" onclick="go('results')">${t('results')}</button></div></div>${heroSvg()}</section>
+  <div class="grid g4">
+   <div class="card stat"><div class="n">${DB.gangs.length}</div><div class="l">${t('gangsCount')}</div></div>
+   <div class="card stat"><div class="n">${DB.players.filter(p=>p.gangId).length}</div><div class="l">${t('membersTotal')}</div></div>
+   <div class="card stat"><div class="n">${DB.gangs.reduce((s,g)=>s+g.wins,0)}</div><div class="l">${t('winsTotal')}</div></div>
+   <div class="card stat"><div class="n">${DB.matches.length}</div><div class="l">${t('matchesTotal')}</div></div>
+  </div>
+  <h2>${t('leaderboard')}</h2>
+  <div class="wrap"><table class="tbl"><tr><th>${t('rank')}</th><th>${t('gang')}</th><th>${t('level')}</th><th>${t('xp')}</th><th>${t('wins')}</th><th>${t('losses')}</th><th>${t('members')}</th></tr>
+  ${gs.map((g,i)=>`<tr class="click" onclick="go('gang','${g.id}')"><td>${i+1}</td><td><span class="gname"><i class="dot" style="background:${g.color}"></i>${esc(g.name)}</span></td><td>${level(g.xp)}</td><td>${g.xp}</td><td style="color:var(--ok)">${g.wins}</td><td style="color:var(--danger)">${g.losses}</td><td>${members(g.id).length}/${CONFIG.MAX_MEMBERS}</td></tr>`).join('')}</table></div>
+  <h2>${t('topKillers')}</h2>
+  <div class="wrap"><table class="tbl"><tr><th>${t('name')}</th><th>${t('gang')}</th><th>${t('kills')}</th><th>${t('deaths')}</th><th>${t('kd')}</th></tr>
+  ${top.map(p=>`<tr class="click" onclick="go('profile','${p.id}')"><td>${esc(p.name)}</td><td>${esc(gangById(p.gangId)?.name||'—')}</td><td>${p.kills}</td><td>${p.deaths}</td><td>${kd(p)}</td></tr>`).join('')}</table></div>`;
+}
+
+function pGangs(){
+  return`<h2>${t('gangs')} ${can('add_gang')?`<button class="btn" onclick="addGang()">+ ${t('addGang')}</button>`:''}</h2>
+  <div class="grid g3">${DB.gangs.map(g=>{const m=members(g.id).length,lv=level(g.xp),pr=(g.xp%CONFIG.XP_PER_LEVEL)/CONFIG.XP_PER_LEVEL*100;
+   return`<div class="card" style="border-top:4px solid ${g.color};cursor:pointer" onclick="go('gang','${g.id}')">
+    <div class="gname" style="font-size:1.2rem">${esc(g.name)}</div>
+    <div class="row" style="margin:10px 0"><span class="badge">${t('level')} ${lv}</span><span class="badge ok">${g.wins} ${t('wins')}</span><span class="badge bad">${g.losses} ${t('losses')}</span></div>
+    <div class="bar"><i style="width:${pr}%"></i></div>
+    <div class="row" style="justify-content:space-between;margin-top:8px;color:var(--muted);font-size:.9rem"><span>${g.xp} XP</span><span>${m}/${CONFIG.MAX_MEMBERS} ${t('members')}</span></div></div>`}).join('')}</div>`;
+}
+function addGang(){
+  if(!needPerm('add_gang'))return;
+  modal(t('addGang'),[{k:'name',label:t('gangName')},{k:'color',label:t('color'),type:'color',value:'#29b6f6'}],o=>{
+    if(!o.name.trim())return false;DB.gangs.push({id:uid(),name:o.name.trim(),color:o.color,xp:0,wins:0,losses:0});save();render();toast(t('done'))});
+}
+
+function holdBadge(p){
+  if(isBL(p))return`<span class="badge bad">${t('blacklisted')}</span>`;
+  if(p.holdUntil&&p.holdUntil>now()){const d=Math.ceil((p.holdUntil-now())/DAY);return`<span class="badge warn">${p.holdKind==='leave'?t('holdLeave'):t('holdJoin')} · ${d} ${t('daysLeft')}</span>`}
+  return`<span class="badge ok">${t('noHold')}</span>`;
+}
+function pGang(){
+  const g=gangById(view.id);if(!g)return pGangs();
+  const ms=members(g.id),pr=(g.xp%CONFIG.XP_PER_LEVEL)/CONFIG.XP_PER_LEVEL*100,mg=canManage(g.id);
+  return`<h2><span class="gname"><i class="dot" style="background:${g.color}"></i>${esc(g.name)} — ${t('gangPanel')}</span>
+   <span class="row"><button class="btn ghost" onclick="go('gangs')">${t('back')}</button>
+   ${can('edit_stats')?`<button class="btn ghost" onclick="editGang('${g.id}')">${t('editStats')}</button>`:''}
+   ${can('add_gang')?`<button class="btn danger" onclick="delGang('${g.id}')">${t('deleteGang')}</button>`:''}</span></h2>
+  <div class="grid g4">
+   <div class="card stat"><div class="n">${level(g.xp)}</div><div class="l">${t('level')}</div><div class="bar" style="margin-top:8px"><i style="width:${pr}%"></i></div></div>
+   <div class="card stat"><div class="n">${g.xp}</div><div class="l">${t('xp')}</div></div>
+   <div class="card stat"><div class="n" style="color:var(--ok)">${g.wins}</div><div class="l">${t('wins')}</div></div>
+   <div class="card stat"><div class="n" style="color:var(--danger)">${g.losses}</div><div class="l">${t('losses')}</div></div>
+   <div class="card stat"><div class="n">${ms.length}/${CONFIG.MAX_MEMBERS}</div><div class="l">${t('members')}</div></div>
+  </div>
+  <h2>${t('members')} ${mg?`<button class="btn" onclick="addMember('${g.id}')">+ ${t('addMember')}</button>`:''}</h2>
+  ${ms.length?`<div class="wrap"><table class="tbl"><tr><th>${t('name')}</th><th>${t('joined')}</th><th>${t('hold')}</th><th>${t('raids')}</th><th>${t('kills')}</th><th>${t('deaths')}</th><th></th></tr>
+  ${ms.map(p=>`<tr><td><a href="#" onclick="go('profile','${p.id}');return false" style="color:var(--accent);font-weight:700">${esc(p.name)}</a></td><td>${fmt(p.joinedAt)}</td><td>${holdBadge(p)}</td><td>${p.raids}</td><td>${p.kills}</td><td>${p.deaths}</td>
+  <td>${mg?`<button class="btn danger sm" onclick="removeMember('${p.id}')">${t('remove')}</button>`:''}</td></tr>`).join('')}</table></div>`:`<div class="card empty">${t('noMembers')}</div>`}`;
+}
+function editGang(id){
+  if(!needPerm('edit_stats'))return;const g=gangById(id);
+  modal(t('editStats'),[{k:'name',label:t('gangName'),value:g.name},{k:'xp',label:t('xp'),type:'number',value:g.xp},{k:'wins',label:t('wins'),type:'number',value:g.wins},{k:'losses',label:t('losses'),type:'number',value:g.losses}],o=>{
+    g.name=o.name.trim()||g.name;g.xp=Math.max(0,+o.xp||0);g.wins=Math.max(0,+o.wins||0);g.losses=Math.max(0,+o.losses||0);save();render()});
+}
+function delGang(id){
+  if(!needPerm('add_gang')||!confirm(t('confirm')))return;
+  DB.players.forEach(p=>{if(p.gangId===id){p.gangId=null;p.leftAt=now();p.holdUntil=now()+CONFIG.HOLD_DAYS*DAY;p.holdKind='leave'}});
+  DB.gangs=DB.gangs.filter(g=>g.id!==id);save();go('gangs');
+}
+function addMember(gid){
+  if(!canManage(gid)){toast(t('noPerm'));return}
+  modal(t('addMember'),[{k:'name',label:t('name')},{k:'discord',label:t('discordId')}],o=>{
+    const name=o.name.trim();if(!name)return false;
+    if(members(gid).length>=CONFIG.MAX_MEMBERS){toast(t('gangFull'));return false}
+    let p=DB.players.find(x=>x.name.toLowerCase()===name.toLowerCase()||(o.discord&&x.discord===o.discord));
+    if(p){
+      if(p.gangId){toast(t('alreadyIn'));return false}
+      if(isBL(p)){toast(t('inBlacklist'));return false}
+      if(p.holdKind==='leave'&&p.holdUntil>now()){toast(`${t('inHold')} ${fmt(p.holdUntil)}`);return false}
+    }else{
+      p={id:uid(),name,discord:o.discord||'',gangId:null,joinedAt:0,leftAt:null,holdUntil:0,holdKind:null,raids:0,wins:0,losses:0,kills:0,deaths:0};DB.players.push(p);
+    }
+    p.gangId=gid;p.joinedAt=now();p.holdUntil=now()+CONFIG.HOLD_DAYS*DAY;p.holdKind='join';
+    save();render();toast(t('done'));
+  });
+}
+function removeMember(pid){
+  const p=playerById(pid);if(!canManage(p.gangId)){toast(t('noPerm'));return}
+  if(!confirm(t('confirm')))return;
+  p.gangId=null;p.leftAt=now();p.holdUntil=now()+CONFIG.HOLD_DAYS*DAY;p.holdKind='leave';save();render();
+}
+
+function pPlayers(){
+  const q=view.q.toLowerCase();
+  const list=DB.players.filter(p=>!q||p.name.toLowerCase().includes(q));
+  return`<h2>${t('players')}<input style="max-width:260px" placeholder="${t('search')}" value="${esc(view.q)}" oninput="view.q=this.value;render();const i=document.querySelector('#app input');i.focus();i.setSelectionRange(i.value.length,i.value.length)"></h2>
+  <div class="wrap"><table class="tbl"><tr><th>${t('name')}</th><th>${t('gang')}</th><th>${t('hold')}</th><th>${t('raids')}</th><th>${t('wins')}</th><th>${t('losses')}</th><th>${t('kills')}</th><th>${t('deaths')}</th></tr>
+  ${list.map(p=>`<tr class="click" onclick="go('profile','${p.id}')"><td><b>${esc(p.name)}</b></td><td>${esc(gangById(p.gangId)?.name||t('noGang'))}</td><td>${holdBadge(p)}</td><td>${p.raids}</td><td>${p.wins}</td><td>${p.losses}</td><td>${p.kills}</td><td>${p.deaths}</td></tr>`).join('')}</table></div>`;
+}
+function pProfile(){
+  const p=playerById(view.id);if(!p)return pPlayers();const g=gangById(p.gangId);
+  const stat=(n,l,c='')=>`<div class="card stat pcard"><div class="n" style="${c}">${n}</div><div class="l">${l}</div></div>`;
+  return`<h2><span>${esc(p.name)} — ${t('profile')}</span><span class="row"><button class="btn ghost" onclick="history.length&&go('${g?'gang':'players'}'${g?`,'${g.id}'`:''})">${t('back')}</button>
+   ${can('edit_stats')?`<button class="btn ghost" onclick="editPlayer('${p.id}')">${t('editStats')}</button>`:''}</span></h2>
+  <div class="card row" style="margin-bottom:16px"><span class="gname">${g?`<i class="dot" style="background:${g.color}"></i>${esc(g.name)}`:t('noGang')}</span>${holdBadge(p)}
+   ${p.gangId?`<span class="badge">${t('joined')}: ${fmt(p.joinedAt)}</span>`:''}${p.leftAt&&!p.gangId?`<span class="badge">${fmt(p.leftAt)}</span>`:''}
+   ${p.holdUntil>now()?`<span class="badge">${t('until')} ${fmt(p.holdUntil)}</span>`:''}</div>
+  <div class="grid g4">${stat(p.raids,t('raids'))}${stat(p.wins,t('wins'),'color:var(--ok)')}${stat(p.losses,t('losses'),'color:var(--danger)')}${stat(p.kills,t('kills'))}${stat(p.deaths,t('deaths'))}${stat(kd(p),t('kd'))}</div>`;
+}
+function editPlayer(id){
+  if(!needPerm('edit_stats'))return;const p=playerById(id);
+  modal(t('editStats'),['raids','wins','losses','kills','deaths'].map(k=>({k,label:t(k==='raids'?'raids':k==='wins'?'wins':k==='losses'?'losses':k==='kills'?'kills':'deaths'),type:'number',value:p[k]})),o=>{
+    ['raids','wins','losses','kills','deaths'].forEach(k=>p[k]=Math.max(0,+o[k]||0));save();render()});
+}
+
+/* ---- Results (tab 3 = wins & losses) ---- */
+function pResults(){
+  const tab=view.tab==='1'?'3':view.tab; // default to the wins/losses tab
+  const tabs=`<div class="tabs">${[['1',t('tab1')],['2',t('tab2')],['3',t('tab3')]].map(([k,l])=>`<button class="${tab===k?'on':''}" onclick="view.tab='${k}';render()">${l}</button>`).join('')}</div>`;
+  let body='';
+  if(tab==='1'){
+    const gs=[...DB.gangs].sort((a,b)=>b.wins-a.wins);
+    body=`<div class="grid g4">${gs.map(g=>`<div class="card stat"><div class="gname" style="justify-content:center"><i class="dot" style="background:${g.color}"></i>${esc(g.name)}</div><div class="n">${g.wins}-${g.losses}</div><div class="l">${t('wins')} / ${t('losses')}</div></div>`).join('')}</div>`;
+  }else if(tab==='2'){
+    body=DB.matches.length?`<div class="wrap"><table class="tbl"><tr><th>${t('date')}</th><th>${t('result')}</th><th>${t('xpWin')}</th><th>${t('xpLose')}</th></tr>
+    ${[...DB.matches].reverse().map(m=>`<tr><td>${fmt(m.at)}</td><td>${esc(m.aName)} ${t('vs')} ${esc(m.bName)} — <b style="color:var(--ok)">${esc(m.winnerName)}</b> ${t('won')}</td><td>+${m.xpWin}</td><td>+${m.xpLose}</td></tr>`).join('')}</table></div>`:`<div class="card empty">—</div>`;
+  }else{
+    body=`<div class="wrap"><table class="tbl"><tr><th>${t('gang')}</th><th style="color:var(--ok)">${t('wins')}</th><th style="color:var(--danger)">${t('losses')}</th><th>${t('total')}</th><th>%</th></tr>
+    ${[...DB.gangs].sort((a,b)=>b.wins-a.wins).map(g=>{const tot=g.wins+g.losses;return`<tr class="click" onclick="go('gang','${g.id}')"><td><span class="gname"><i class="dot" style="background:${g.color}"></i>${esc(g.name)}</span></td><td>${g.wins}</td><td>${g.losses}</td><td>${tot}</td>
+    <td style="min-width:120px"><div class="bar"><i style="width:${tot?g.wins/tot*100:0}%;background:var(--ok)"></i></div></td></tr>`}).join('')}</table></div>`;
+  }
+  return`<h2>${t('results')} ${can('record_match')?`<button class="btn" onclick="recordMatch()">+ ${t('recordMatch')}</button>`:''}</h2>${tabs}${body}`;
+}
+function recordMatch(){
+  if(!needPerm('record_match'))return;
+  const opts=DB.gangs.map(g=>({v:g.id,l:g.name}));
+  if(opts.length<2)return;
+  modal(t('recordMatch'),[
+    {k:'a',label:t('gangA'),type:'select',options:opts,value:opts[0].v},
+    {k:'b',label:t('gangB'),type:'select',options:opts,value:opts[1].v},
+    {k:'w',label:t('winner'),type:'select',options:[{v:'a',l:t('gangA')},{v:'b',l:t('gangB')}]},
+    {k:'xpWin',label:t('xpWin'),type:'number',value:100},{k:'xpLose',label:t('xpLose'),type:'number',value:25}
+  ],o=>{
+    if(o.a===o.b){toast('A ≠ B');return false}
+    const A=gangById(o.a),B=gangById(o.b),W=o.w==='a'?A:B,L=o.w==='a'?B:A;
+    W.wins++;L.losses++;W.xp+=+o.xpWin||0;L.xp+=+o.xpLose||0;
+    DB.matches.push({id:uid(),a:A.id,b:B.id,aName:A.name,bName:B.name,winnerName:W.name,xpWin:+o.xpWin||0,xpLose:+o.xpLose||0,at:now()});
+    save();view.tab='2';render();toast(t('done'));
+  });
+}
+
+/* ---- Discord panel ---- */
+function pDiscord(){
+  if(!session||!(can('manage_roles')||can('assign_roles')||can('blacklist')))return`<div class="card empty">${t('deny')}</div>`;
+  const tabs=`<div class="tabs">${[['roles',t('roles')],['staff',t('staff')],['bl',t('blacklist')],['hold',t('holdList')]].map(([k,l])=>`<button class="${view.dtab===k?'on':''}" onclick="view.dtab='${k}';render()">${l}</button>`).join('')}</div>`;
+  let body='';
+  if(view.dtab==='roles'){
+    body=`<h2>${t('roles')} ${can('manage_roles')?`<button class="btn" onclick="addRole()">+ ${t('addRole')}</button>`:''}</h2>
+    <div class="grid g3">${DB.roles.map(r=>`<div class="card" style="border-top:4px solid ${r.color}"><b>${esc(r.name)}</b>
+      <div class="row" style="margin-top:10px">${r.perms.length?r.perms.map(p=>`<span class="badge">${t('p_'+p)}</span>`).join(''):'<span class="badge">—</span>'}</div>
+      ${can('manage_roles')&&!['mafia','member'].includes(r.id)?`<div class="row" style="margin-top:12px"><button class="btn ghost sm" onclick="editRole('${r.id}')">${t('edit')}</button><button class="btn danger sm" onclick="delRole('${r.id}')">${t('delete')}</button></div>`:''}</div>`).join('')}</div>`;
+  }else if(view.dtab==='staff'){
+    body=`<h2>${t('staff')} ${can('assign_roles')?`<button class="btn" onclick="addStaff()">+ ${t('addStaff')}</button>`:''}</h2>
+    <div class="wrap"><table class="tbl"><tr><th>${t('name')}</th><th>${t('discordId')}</th><th>${t('role')}</th><th></th></tr>
+    ${DB.staff.map(s=>`<tr><td>${esc(s.name)}</td><td>${esc(s.discord||'—')}</td><td>${can('assign_roles')?`<select onchange="setStaffRole('${s.id}',this.value)">${DB.roles.map(r=>`<option value="${r.id}" ${r.id===s.roleId?'selected':''}>${esc(r.name)}</option>`).join('')}</select>`:esc(DB.roles.find(r=>r.id===s.roleId)?.name||'')}</td>
+    <td>${can('assign_roles')?`<button class="btn danger sm" onclick="delStaff('${s.id}')">${t('delete')}</button>`:''}</td></tr>`).join('')}</table></div>`;
+  }else if(view.dtab==='bl'){
+    const fr=isFriday();
+    body=`<div class="notice ${fr?'ok':'bad'}">${t('fridayOnly')} — ${fr?t('fridayOk'):t('fridayNo')}
+      <div class="chk" style="margin-top:8px"><input type="checkbox" ${prefs.demoFriday?'checked':''} onchange="prefs.demoFriday=this.checked;savePrefs();render()">${t('demoFriday')}</div></div>
+    <h2>${t('blacklist')} ${can('blacklist')?`<button class="btn" onclick="addBL()">+ ${t('addBL')}</button>`:''}</h2>
+    ${DB.blacklist.length?`<div class="wrap"><table class="tbl"><tr><th>${t('name')}</th><th>${t('reason')}</th><th>${t('by')}</th><th>${t('date')}</th><th></th></tr>
+    ${DB.blacklist.map(b=>`<tr><td>${esc(playerById(b.playerId)?.name||'?')}</td><td>${esc(b.reason)}</td><td>${esc(b.by)}</td><td>${fmt(b.at)}</td><td>${can('blacklist')?`<button class="btn ghost sm" onclick="liftBL('${b.id}')">${t('liftBL')}</button>`:''}</td></tr>`).join('')}</table></div>`:`<div class="card empty">—</div>`}`;
+  }else{
+    const hs=DB.players.filter(p=>p.holdUntil>now());
+    body=`<h2>${t('holdList')}</h2>${hs.length?`<div class="wrap"><table class="tbl"><tr><th>${t('name')}</th><th>${t('gang')}</th><th>${t('hold')}</th><th>${t('until')}</th></tr>
+    ${hs.map(p=>`<tr class="click" onclick="go('profile','${p.id}')"><td>${esc(p.name)}</td><td>${esc(gangById(p.gangId)?.name||'—')}</td><td>${holdBadge(p)}</td><td>${fmt(p.holdUntil)}</td></tr>`).join('')}</table></div>`:`<div class="card empty">—</div>`}`;
+  }
+  return`<div class="notice">${t('apiNote')}</div>${tabs}${body}`;
+}
+const permOpts=()=>PERMS.map(p=>({v:p,l:t('p_'+p)}));
+function addRole(){
+  if(!needPerm('manage_roles'))return;
+  modal(t('addRole'),[{k:'name',label:t('roleName')},{k:'color',label:t('color'),type:'color',value:'#29b6f6'},{k:'perms',label:t('perms'),type:'checks',options:permOpts(),value:[]}],o=>{
+    if(!o.name.trim())return false;DB.roles.push({id:uid(),name:o.name.trim(),color:o.color,perms:o.perms});save();render()});
+}
+function editRole(id){
+  if(!needPerm('manage_roles'))return;const r=DB.roles.find(x=>x.id===id);
+  modal(t('edit'),[{k:'name',label:t('roleName'),value:r.name},{k:'color',label:t('color'),type:'color',value:r.color},{k:'perms',label:t('perms'),type:'checks',options:permOpts(),value:r.perms}],o=>{
+    r.name=o.name.trim()||r.name;r.color=o.color;r.perms=o.perms;save();render()});
+}
+function delRole(id){
+  if(!needPerm('manage_roles')||!confirm(t('confirm')))return;
+  DB.staff.forEach(s=>{if(s.roleId===id)s.roleId='member'});DB.roles=DB.roles.filter(r=>r.id!==id);save();render();
+}
+function addStaff(){
+  if(!needPerm('assign_roles'))return;
+  modal(t('addStaff'),[{k:'name',label:t('name')},{k:'discord',label:t('discordId')},{k:'roleId',label:t('role'),type:'select',options:DB.roles.map(r=>({v:r.id,l:r.name}))}],o=>{
+    if(!o.name.trim())return false;DB.staff.push({id:uid(),name:o.name.trim(),discord:o.discord,roleId:o.roleId});save();render()});
+}
+function setStaffRole(id,rid){if(!needPerm('assign_roles'))return render();DB.staff.find(s=>s.id===id).roleId=rid;save();render()}
+function delStaff(id){if(!needPerm('assign_roles')||!confirm(t('confirm')))return;DB.staff=DB.staff.filter(s=>s.id!==id);save();render()}
+
+function addBL(){
+  if(!needPerm('blacklist'))return;
+  if(!isFriday()){toast(t('fridayNo'));return}
+  modal(t('addBL'),[{k:'name',label:t('name')},{k:'reason',label:t('reason')}],o=>{
+    const n=o.name.trim();if(!n)return false;
+    let p=DB.players.find(x=>x.name.toLowerCase()===n.toLowerCase());
+    if(!p){p={id:uid(),name:n,discord:'',gangId:null,joinedAt:0,leftAt:null,holdUntil:0,holdKind:null,raids:0,wins:0,losses:0,kills:0,deaths:0};DB.players.push(p)}
+    if(isBL(p)){toast(t('inBlacklist'));return false}
+    if(p.gangId){p.gangId=null;p.leftAt=now();p.holdUntil=now()+CONFIG.HOLD_DAYS*DAY;p.holdKind='leave'}
+    DB.blacklist.push({id:uid(),playerId:p.id,reason:o.reason,by:session.name,at:now()});save();render();toast(t('done'));
+  });
+}
+function liftBL(id){
+  if(!needPerm('blacklist'))return;
+  if(!isFriday()){toast(t('fridayNo'));return}
+  if(!confirm(t('confirm')))return;
+  DB.blacklist=DB.blacklist.filter(b=>b.id!==id);save();render();
+}
+
+/* ============ FIVEM / DISCORD HOOKS (للربط مع الباك إند) ============ */
+// مثال: استدعِ هذه الدالة من الـ Backend/WebSocket عند حدوث قتل أو مشاركة ريد داخل السيرفر.
+window.OLGANGS={
+  kill(killerName,victimName){const k=DB.players.find(p=>p.name===killerName),v=DB.players.find(p=>p.name===victimName);if(k)k.kills++;if(v)v.deaths++;save();render()},
+  raid(playerName){const p=DB.players.find(p=>p.name===playerName);if(p){p.raids++;save();render()}}
+};
+
+render();
+</script>
+</body>
+</html>
